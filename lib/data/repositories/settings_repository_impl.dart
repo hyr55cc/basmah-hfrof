@@ -23,9 +23,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
         _settingsKey,
       );
       if (cached != null) {
-        return Right(AppSettings.fromJson(
-          json.decode(cached) as Map<String, dynamic>,
-        ));
+        return Right(_parseSettings(json.decode(cached) as Map<String, dynamic>));
       }
       return Right(_defaultSettings());
     } catch (e) {
@@ -41,7 +39,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       await storage.setBoxData(
         AppConstants.settingsBox,
         _settingsKey,
-        json.encode(settings.toJson()),
+        json.encode(_settingsToJson(settings)),
       );
       return Right(settings);
     } catch (e) {
@@ -56,32 +54,31 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
   @override
   Stream<AppSettings> get settingsStream async* {
-    yield await getSettings().then((r) => r.fold((_) => _defaultSettings(), (s) => s));
-    // No native stream - would need to add ChangeNotifier
+    yield await getSettings()
+        .then((r) => r.fold((_) => _defaultSettings(), (s) => s));
   }
-}
 
-extension on AppSettings {
-  Map<String, dynamic> toJson() => {
-        'themeMode': themeMode.name,
-        'language': language.name,
-        'musicEnabled': musicEnabled,
-        'soundEnabled': soundEnabled,
-        'vibrationEnabled': vibrationEnabled,
-        'notificationsEnabled': notificationsEnabled,
-        'dailyReminderEnabled': dailyReminderEnabled,
-        'eventReminderEnabled': eventReminderEnabled,
-        'showAnimations': showAnimations,
-        'hapticOnWordFound': hapticOnWordFound,
-        'hapticOnLevelComplete': hapticOnLevelComplete,
-        'adsRemoved': adsRemoved,
-        'premiumMember': premiumMember,
-        'dataSaverMode': dataSaverMode,
-        'autoSync': autoSync,
-        'analyticsEnabled': analyticsEnabled,
+  // Helper methods (JSON serialization)
+  Map<String, dynamic> _settingsToJson(AppSettings s) => {
+        'themeMode': s.themeMode.name,
+        'language': s.language.name,
+        'musicEnabled': s.musicEnabled,
+        'soundEnabled': s.soundEnabled,
+        'vibrationEnabled': s.vibrationEnabled,
+        'notificationsEnabled': s.notificationsEnabled,
+        'dailyReminderEnabled': s.dailyReminderEnabled,
+        'eventReminderEnabled': s.eventReminderEnabled,
+        'showAnimations': s.showAnimations,
+        'hapticOnWordFound': s.hapticOnWordFound,
+        'hapticOnLevelComplete': s.hapticOnLevelComplete,
+        'adsRemoved': s.adsRemoved,
+        'premiumMember': s.premiumMember,
+        'dataSaverMode': s.dataSaverMode,
+        'autoSync': s.autoSync,
+        'analyticsEnabled': s.analyticsEnabled,
       };
 
-  static AppSettings fromJson(Map<String, dynamic> json) {
+  AppSettings _parseSettings(Map<String, dynamic> json) {
     return AppSettings(
       themeMode: _parseThemeMode(json['themeMode'] as String?),
       language: _parseLanguage(json['language'] as String?),
@@ -102,7 +99,7 @@ extension on AppSettings {
     );
   }
 
-  static AppThemeMode _parseThemeMode(String? value) {
+  AppThemeMode _parseThemeMode(String? value) {
     switch (value) {
       case 'light':
         return AppThemeMode.light;
@@ -113,7 +110,7 @@ extension on AppSettings {
     }
   }
 
-  static AppLanguage _parseLanguage(String? value) {
+  AppLanguage _parseLanguage(String? value) {
     switch (value) {
       case 'english':
         return AppLanguage.english;

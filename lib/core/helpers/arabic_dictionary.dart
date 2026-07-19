@@ -19,7 +19,7 @@ class ArabicDictionary {
   final Map<int, Set<String>> _wordsByLength = <int, Set<String>>{};
 
   // Letter index: firstLetter -> set of words
-  final Map<String, Set<String>> _wordsByFirstLetter = <String, Set<String>{};
+  final Map<String, Set<String>> _wordsByFirstLetter = <String, Set<String>>{};
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;

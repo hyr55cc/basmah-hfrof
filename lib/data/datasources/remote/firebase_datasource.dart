@@ -5,6 +5,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/errors/exceptions.dart';
+import '../../../domain/entities/achievement.dart';
 import '../../models/user_model.dart';
 import '../../models/level_model.dart';
 import '../../models/achievement_model.dart';

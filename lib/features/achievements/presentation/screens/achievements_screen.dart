@@ -7,12 +7,13 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/common_widgets.dart';
 import '../../../../core/widgets/glass_container.dart';
+import '../../../../data/datasources/remote/firebase_datasource.dart';
 import '../../../../domain/entities/achievement.dart';
 import '../../../../domain/repositories/achievement_repository.dart';
 
 final userAchievementsProvider =
     FutureProvider.autoDispose<List<AchievementProgress>>((ref) async {
-  final userId = sl<dynamic>().auth.currentUser?.uid;
+  final userId = sl<FirebaseDatasource>().auth.currentUser?.uid;
   if (userId == null) return [];
   final result = await sl<AchievementRepository>().getUserProgress(userId);
   return result.fold((_) => [], (list) => list);
@@ -29,7 +30,7 @@ class AchievementsScreen extends ConsumerWidget {
         title: const Text('الإنجازات'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_forward_ios_rounded),
-          onPressed: () => context.pop(),
+          onPressed: () => GoRouter.of(context).pop(),
         ),
       ),
       body: Container(
@@ -92,7 +93,7 @@ class AchievementsScreen extends ConsumerWidget {
                       progress: progress,
                       onClaim: () async {
                         final userId =
-                            sl<dynamic>().auth.currentUser?.uid;
+                            sl<FirebaseDatasource>().auth.currentUser?.uid;
                         if (userId == null) return;
                         final result = await sl<AchievementRepository>()
                             .claimReward(

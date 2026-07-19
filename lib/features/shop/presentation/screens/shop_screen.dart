@@ -8,6 +8,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/common_widgets.dart';
 import '../../../../core/widgets/glass_container.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../../../../data/datasources/remote/firebase_datasource.dart';
 import '../../../../domain/entities/shop.dart';
 import '../../../../domain/repositories/shop_repository.dart';
 import '../../../../services/iap/purchase_service.dart';
@@ -112,7 +113,7 @@ class _ShopItemCard extends ConsumerWidget {
   final ShopItem item;
 
   Future<void> _purchase(BuildContext context, WidgetRef ref) async {
-    final userId = sl<dynamic>().auth.currentUser?.uid;
+    final userId = sl<FirebaseDatasource>().auth.currentUser?.uid;
     if (userId == null) return;
     final result = await sl<ShopRepository>().processPurchase(
       userId: userId,

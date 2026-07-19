@@ -7,8 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app.dart';
 import 'core/di/injection_container.dart';
 import 'core/helpers/arabic_dictionary.dart';
-import 'core/services/ads/ad_service.dart';
-import 'core/services/notifications/notification_service.dart';
+import 'services/ads/ad_service.dart';
+import 'services/notifications/notification_service.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

@@ -53,9 +53,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     // Initialize services
     setState(() => _loadingText = 'جاري تهيئة الخدمات...');
-    await Future.wait([
-      sl<dynamic>() is Future ? sl<dynamic>() : Future.value(),
-    ]).catchError((_) => <dynamic>[]);
+    // Services are already initialized in main.dart, just add a small delay
+    await Future<void>.delayed(const Duration(milliseconds: 500));
 
     // Check first launch
     final prefs = await SharedPreferences.getInstance();

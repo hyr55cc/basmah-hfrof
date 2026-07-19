@@ -51,7 +51,8 @@ extension ContextExtensions on BuildContext {
   bool get isRtl => Directionality.of(this) == TextDirection.rtl;
 
   /// Pop the route if possible
-  void pop<T>([T? result]) => Navigator.of(this).pop(result);
+  /// Note: use GoRouter.of(context).pop() if using GoRouter to avoid ambiguity
+  void popRoute<T>([T? result]) => Navigator.of(this).pop(result);
 
   /// Hide keyboard
   void hideKeyboard() => FocusScope.of(this).unfocus();

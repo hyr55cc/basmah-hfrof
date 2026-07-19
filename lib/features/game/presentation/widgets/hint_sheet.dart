@@ -4,6 +4,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/di/injection_container.dart';
+import '../../../../data/datasources/remote/firebase_datasource.dart';
 import '../../../../domain/repositories/user_repository.dart';
 import '../../domain/entities/game_state.dart';
 
@@ -34,7 +35,7 @@ class _HintSheetState extends ConsumerState<HintSheet> {
   }
 
   Future<void> _loadUserData() async {
-    final userId = sl<dynamic>().auth.currentUser?.uid;
+    final userId = sl<FirebaseDatasource>().auth.currentUser?.uid;
     if (userId == null) return;
     final result = await sl<UserRepository>().getUser(userId);
     result.fold((_) => null, (user) {

@@ -1,0 +1,207 @@
+{
+  "@@locale": "ar",
+  "appTitle": "لغز الكلمات",
+  "@appTitle": {
+    "description": "Application title"
+  },
+  "play": "العب",
+  "@play": {
+    "description": "Play button"
+  },
+  "settings": "الإعدادات",
+  "@settings": {
+    "description": "Settings menu"
+  },
+  "shop": "المتجر",
+  "@shop": {
+    "description": "Shop menu"
+  },
+  "leaderboard": "المتصدرين",
+  "@leaderboard": {
+    "description": "Leaderboard menu"
+  },
+  "achievements": "الإنجازات",
+  "@achievements": {
+    "description": "Achievements menu"
+  },
+  "profile": "الملف الشخصي",
+  "@profile": {
+    "description": "Profile menu"
+  },
+  "home": "الرئيسية",
+  "@home": {
+    "description": "Home"
+  },
+  "premium": "المميزة",
+  "@premium": {
+    "description": "Premium"
+  },
+  "coins": "العملات",
+  "@coins": {
+    "description": "Coins"
+  },
+  "hints": "التلميحات",
+  "@hints": {
+    "description": "Hints"
+  },
+  "level": "المستوى",
+  "@level": {
+    "description": "Level"
+  },
+  "next": "التالي",
+  "@next": {
+    "description": "Next"
+  },
+  "back": "السابق",
+  "@back": {
+    "description": "Back"
+  },
+  "close": "إغلاق",
+  "@close": {
+    "description": "Close"
+  },
+  "ok": "موافق",
+  "@ok": {
+    "description": "OK"
+  },
+  "cancel": "إلغاء",
+  "@cancel": {
+    "description": "Cancel"
+  },
+  "save": "حفظ",
+  "@save": {
+    "description": "Save"
+  },
+  "delete": "حذف",
+  "@delete": {
+    "description": "Delete"
+  },
+  "edit": "تعديل",
+  "@edit": {
+    "description": "Edit"
+  },
+  "search": "بحث",
+  "@search": {
+    "description": "Search"
+  },
+  "loading": "جاري التحميل",
+  "@loading": {
+    "description": "Loading"
+  },
+  "error": "خطأ",
+  "@error": {
+    "description": "Error"
+  },
+  "retry": "إعادة المحاولة",
+  "@retry": {
+    "description": "Retry"
+  },
+  "signIn": "تسجيل الدخول",
+  "@signIn": {
+    "description": "Sign in"
+  },
+  "signUp": "إنشاء حساب",
+  "@signUp": {
+    "description": "Sign up"
+  },
+  "signOut": "تسجيل الخروج",
+  "@signOut": {
+    "description": "Sign out"
+  },
+  "guest": "ضيف",
+  "@guest": {
+    "description": "Guest"
+  },
+  "skip": "تخطي",
+  "@skip": {
+    "description": "Skip"
+  },
+  "continue": "متابعة",
+  "@continue": {
+    "description": "Continue"
+  },
+  "welcome": "مرحبًا",
+  "@welcome": {
+    "description": "Welcome"
+  },
+  "congratulations": "تهانينا",
+  "@congratulations": {
+    "description": "Congratulations"
+  },
+  "levelComplete": "أكملت المستوى",
+  "@levelComplete": {
+    "description": "Level complete"
+  },
+  "great": "أحسنت",
+  "@great": {
+    "description": "Great"
+  },
+  "watchAd": "شاهد إعلانًا",
+  "@watchAd": {
+    "description": "Watch ad"
+  },
+  "claim": "استلام",
+  "@claim": {
+    "description": "Claim"
+  },
+  "buy": "شراء",
+  "@buy": {
+    "description": "Buy"
+  },
+  "subscribe": "اشترك",
+  "@subscribe": {
+    "description": "Subscribe"
+  },
+  "restore": "استعادة",
+  "@restore": {
+    "description": "Restore"
+  },
+  "language": "اللغة",
+  "@language": {
+    "description": "Language"
+  },
+  "theme": "المظهر",
+  "@theme": {
+    "description": "Theme"
+  },
+  "light": "فاتح",
+  "@light": {
+    "description": "Light theme"
+  },
+  "dark": "داكن",
+  "@dark": {
+    "description": "Dark theme"
+  },
+  "system": "تلقائي",
+  "@system": {
+    "description": "System theme"
+  },
+  "music": "الموسيقى",
+  "@music": {
+    "description": "Music"
+  },
+  "sound": "الصوت",
+  "@sound": {
+    "description": "Sound"
+  },
+  "vibration": "الاهتزاز",
+  "@vibration": {
+    "description": "Vibration"
+  },
+  "notifications": "الإشعارات",
+  "@notifications": {
+    "description": "Notifications"
+  },
+  "privacy": "الخصوصية",
+  "@privacy": {
+    "description": "Privacy"
+  },
+  "terms": "الشروط",
+  "@terms": {
+    "description": "Terms"
+  },
+  "about": "حول",
+  "@about": {
+    "description": "About"
+  }
+}

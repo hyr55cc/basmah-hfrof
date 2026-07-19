@@ -10,6 +10,7 @@ import '../../../../core/widgets/common_widgets.dart';
 import '../../../../core/widgets/glass_container.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../domain/repositories/auth_repository.dart';
+import '../../../../domain/usecases/usecases.dart';
 import '../../../game/presentation/providers/game_providers.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {

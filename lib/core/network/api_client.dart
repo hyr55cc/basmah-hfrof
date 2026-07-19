@@ -114,6 +114,7 @@ class ApiClient {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
+      case DioExceptionType.transformTimeout:
         return const NetworkException(
           'انتهت مهلة الاتصال. حاول مرة أخرى.',
           'TIMEOUT',

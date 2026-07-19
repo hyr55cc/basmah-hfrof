@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../domain/entities/user.dart';
 import '../../../../domain/repositories/auth_repository.dart';
-import '../../../../domain/usecases/usecases.dart';
+import '../../../../domain/usecases/usecases.dart' show UseCase, NoParams;
 
 class SignInAnonymously implements UseCase<AuthResult, NoParams> {
   SignInAnonymously(this.repository);

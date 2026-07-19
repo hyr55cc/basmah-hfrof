@@ -67,12 +67,12 @@ class AdService {
       await InterstitialAd.load(
         adUnitId: AppConstants.adMobInterstitialId,
         request: const AdRequest(),
-        adLoadCallback: InterstitialAdCallback(
-          onAdLoaded: (ad) {
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (InterstitialAd ad) {
             _interstitialAd = ad;
             if (kDebugMode) debugPrint('Interstitial loaded');
           },
-          onAdFailedToLoad: (error) {
+          onAdFailedToLoad: (LoadAdError error) {
             if (kDebugMode) debugPrint('Interstitial failed: $error');
             _interstitialAd = null;
           },
@@ -123,11 +123,11 @@ class AdService {
         adUnitId: AppConstants.adMobRewardedId,
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
-          onAdLoaded: (ad) {
+          onAdLoaded: (RewardedAd ad) {
             _rewardedAd = ad;
             if (kDebugMode) debugPrint('Rewarded loaded');
           },
-          onAdFailedToLoad: (error) {
+          onAdFailedToLoad: (LoadAdError error) {
             if (kDebugMode) debugPrint('Rewarded failed: $error');
             _rewardedAd = null;
           },

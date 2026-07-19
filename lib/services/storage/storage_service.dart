@@ -75,14 +75,14 @@ class StorageService {
   }
 
   /// Get file as bytes
-  Future<Uint8List> getFileBytes(String path) async {
+  Future<Uint8List?> getFileBytes(String path) async {
     try {
       return await _storage.ref(path).getData();
     } catch (e) {
       if (kDebugMode) {
         debugPrint('Get file bytes error: $e');
       }
-      rethrow;
+      return null;
     }
   }
 }

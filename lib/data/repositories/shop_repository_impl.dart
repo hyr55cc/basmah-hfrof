@@ -7,6 +7,7 @@ import '../../domain/repositories/shop_repository.dart';
 import '../datasources/local/local_storage.dart';
 import '../datasources/remote/firebase_datasource.dart';
 import '../models/shop_model.dart';
+import '../models/user_model.dart';
 import '../../services/iap/purchase_service.dart';
 
 class ShopRepositoryImpl implements ShopRepository {
@@ -258,7 +259,7 @@ class ShopRepositoryImpl implements ShopRepository {
           dailyRewardStreak: newStreak,
           lastDailyRewardDate: DateTime.now(),
         );
-        await firebase.updateUserDocument(updated as dynamic);
+        await firebase.updateUserDocument(UserModel.fromEntity(updated));
         return Right(reward);
       });
     } on AppException catch (e) {
@@ -325,7 +326,7 @@ class ShopRepositoryImpl implements ShopRepository {
           hints: updated.hints + 10,
         );
       }
-      await firebase.updateUserDocument(updated as dynamic);
+      await firebase.updateUserDocument(UserModel.fromEntity(updated));
       await firebase.recordPurchase(
         userId: userId,
         productId: productId,

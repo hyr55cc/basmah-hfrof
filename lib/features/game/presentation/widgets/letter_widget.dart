@@ -5,6 +5,7 @@ import '../../../../core/theme/app_text_styles.dart';
 /// Single letter in the game circle
 class LetterWidget extends StatefulWidget {
   const LetterWidget({
+    super.key,
     required this.letter,
     required this.position,
     required this.size,

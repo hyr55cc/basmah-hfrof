@@ -5,6 +5,7 @@ import '../../../../core/di/injection_container.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../../../../domain/repositories/auth_repository.dart';
 import '../../../../services/analytics/analytics_service.dart';
 import '../../domain/usecases/auth_usecases.dart';
 
@@ -40,7 +41,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     if (_isLogin) {
       // Sign in
-      final repo = sl<dynamic>(); // AuthRepository
+      final repo = sl<AuthRepository>();
       try {
         final result = await repo.signInWithEmail(
           email: _emailController.text.trim(),
@@ -66,7 +67,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       }
     } else {
       // Register
-      final repo = sl<dynamic>();
+      final repo = sl<AuthRepository>();
       try {
         final result = await repo.registerWithEmail(
           email: _emailController.text.trim(),
@@ -240,7 +241,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           });
                           return;
                         }
-                        final repo = sl<dynamic>();
+                        final repo = sl<AuthRepository>();
                         final result = await repo.resetPassword(
                           _emailController.text.trim(),
                         );

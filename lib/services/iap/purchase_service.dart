@@ -38,7 +38,7 @@ class PurchaseService {
   Future<List<ShopItem>> getProducts() async {
     if (!_available) return [];
     try {
-      const productIds = <String>{
+      final productIds = <String>{
         AppConstants.iapRemoveAds,
         AppConstants.iapPremiumMonthly,
         AppConstants.iapPremiumYearly,
@@ -55,7 +55,7 @@ class PurchaseService {
       _productsController.add(items);
       return items;
     } on InAppPurchaseException catch (e) {
-      throw PurchaseException(e.message, e.code);
+      throw PurchaseException(e.message ?? 'Unknown error', e.code);
     } catch (e) {
       throw PurchaseException(e.toString());
     }
@@ -66,12 +66,11 @@ class PurchaseService {
     try {
       final purchaseParam = PurchaseParam(
         productDetails: product,
-        applicationUserName: null,
       );
       final result = await _iap.buyNonConsumable(purchaseParam: purchaseParam);
       return result;
     } on InAppPurchaseException catch (e) {
-      throw PurchaseException(e.message, e.code);
+      throw PurchaseException(e.message ?? 'Unknown error', e.code);
     } catch (e) {
       throw PurchaseException(e.toString());
     }
@@ -87,7 +86,7 @@ class PurchaseService {
       );
       return result;
     } on InAppPurchaseException catch (e) {
-      throw PurchaseException(e.message, e.code);
+      throw PurchaseException(e.message ?? 'Unknown error', e.code);
     } catch (e) {
       throw PurchaseException(e.toString());
     }
@@ -98,7 +97,7 @@ class PurchaseService {
     try {
       await _iap.restorePurchases();
     } on InAppPurchaseException catch (e) {
-      throw PurchaseException(e.message, e.code);
+      throw PurchaseException(e.message ?? 'Unknown error', e.code);
     } catch (e) {
       throw PurchaseException(e.toString());
     }
@@ -148,7 +147,7 @@ class PurchaseService {
       title: product.title,
       description: product.description,
       category: category,
-      price: product.price,
+      price: double.tryParse(product.price) ?? 0.0,
       currency: product.currencyCode,
       amount: _amountFromProductId(id),
       productId: id,

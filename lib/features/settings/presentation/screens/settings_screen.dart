@@ -8,8 +8,11 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/common_widgets.dart';
 import '../../../../core/widgets/glass_container.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../../../../data/datasources/remote/firebase_datasource.dart';
 import '../../../../domain/entities/settings.dart';
+import '../../../../domain/repositories/auth_repository.dart';
 import '../../../../domain/repositories/settings_repository.dart';
+import '../../../../domain/repositories/shop_repository.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -147,8 +150,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 leading: const Icon(Icons.shopping_bag_rounded),
                 title: const Text('استعادة المشتريات'),
                 onTap: () async {
+                  final userId =
+                      sl<FirebaseDatasource>().auth.currentUser?.uid ?? '';
                   final result =
-                      await sl<dynamic>().restorePurchases('current');
+                      await sl<ShopRepository>().restorePurchases(userId);
                   if (!mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -223,7 +228,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
     );
     if (confirm == true) {
-      await sl<dynamic>().deleteAccount();
+      await sl<AuthRepository>().deleteAccount();
       if (!mounted) return;
       context.goNamed('auth');
     }

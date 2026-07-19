@@ -15,6 +15,7 @@ class GlassContainer extends StatelessWidget {
     this.width,
     this.height,
     this.gradient,
+    this.onTap,
     super.key,
   });
 
@@ -29,6 +30,7 @@ class GlassContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final Gradient? gradient;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class GlassContainer extends StatelessWidget {
             ? Colors.white.withOpacity(0.15)
             : Colors.white.withOpacity(0.8));
 
-    return Container(
+    final container = Container(
       width: width,
       height: height,
       margin: margin,
@@ -69,6 +71,16 @@ class GlassContainer extends StatelessWidget {
             child: child,
           ),
         ),
+      ),
+    );
+
+    if (onTap == null) return container;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: container,
       ),
     );
   }

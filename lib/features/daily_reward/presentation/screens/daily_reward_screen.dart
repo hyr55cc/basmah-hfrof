@@ -9,8 +9,10 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/common_widgets.dart';
 import '../../../../core/widgets/glass_container.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../../../../data/datasources/remote/firebase_datasource.dart';
 import '../../../../domain/entities/shop.dart';
 import '../../../../domain/repositories/shop_repository.dart';
+import '../../../../domain/repositories/user_repository.dart';
 import '../../../../services/ads/ad_service.dart';
 import '../../../game/presentation/providers/game_providers.dart';
 
@@ -35,7 +37,7 @@ class _DailyRewardScreenState extends ConsumerState<DailyRewardScreen> {
 
   Future<void> _load() async {
     final shopRepo = sl<ShopRepository>();
-    final userId = sl<dynamic>().auth.currentUser?.uid;
+    final userId = sl<FirebaseDatasource>().auth.currentUser?.uid;
     if (userId == null) return;
     final rewardsResult = await shopRepo.getDailyRewards();
     final statusResult = await shopRepo.getDailyRewardStatus(userId);
@@ -50,7 +52,7 @@ class _DailyRewardScreenState extends ConsumerState<DailyRewardScreen> {
   Future<void> _claim() async {
     if (_status == null || !_status!.canClaimToday) return;
     setState(() => _isClaiming = true);
-    final userId = sl<dynamic>().auth.currentUser?.uid;
+    final userId = sl<FirebaseDatasource>().auth.currentUser?.uid;
     if (userId == null) return;
     final result =
         await sl<ShopRepository>().claimDailyReward(userId);
@@ -103,9 +105,9 @@ class _DailyRewardScreenState extends ConsumerState<DailyRewardScreen> {
     final adService = sl<AdService>();
     final success = await adService.showRewarded(
       onRewarded: (amount, type) async {
-        final userId = sl<dynamic>().auth.currentUser?.uid;
+        final userId = sl<FirebaseDatasource>().auth.currentUser?.uid;
         if (userId == null) return;
-        await sl<dynamic>().addCoins(userId, 50);
+        await sl<UserRepository>().addCoins(userId, 50);
         if (mounted) {
           ref.invalidate(currentUserProvider);
           ScaffoldMessenger.of(context).showSnackBar(
@@ -128,7 +130,7 @@ class _DailyRewardScreenState extends ConsumerState<DailyRewardScreen> {
         title: const Text('المكافأة اليومية'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_forward_ios_rounded),
-          onPressed: () => context.pop(),
+          onPressed: () => GoRouter.of(context).pop(),
         ),
       ),
       body: Container(

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/di/injection_container.dart';
-import '../../../../core/services/audio/audio_service.dart';
-import '../../../../core/services/haptics/haptic_service.dart';
+import '../../../../services/audio/audio_service.dart';
+import '../../../../services/haptics/haptic_service.dart';
 import '../../../../data/datasources/remote/firebase_datasource.dart';
 import '../../../../domain/entities/level.dart';
 import '../../../../domain/entities/user.dart';
@@ -10,6 +10,7 @@ import '../../../../domain/repositories/level_repository.dart';
 import '../../../../domain/repositories/user_repository.dart';
 import '../../../../domain/repositories/achievement_repository.dart';
 import '../../core/game_controller.dart';
+import '../../domain/entities/game_state.dart';
 import '../../../../services/ads/ad_service.dart';
 import '../../../../services/analytics/analytics_service.dart';
 
@@ -267,5 +268,27 @@ class GameControllerNotifier extends StateNotifier<GameController> {
 
     // Force notify listeners
     state = state;
+  }
+
+  /// Reset the level
+  void reset() {
+    _wordsFoundCount = 0;
+    _bonusWordsCount = 0;
+    _errorsCount = 0;
+    _coinsEarned = 0;
+    _isCompleted = false;
+    state.reset();
+    state = state;
+  }
+
+  /// Start a new level (for next level navigation)
+  void nextLevel() {
+    _wordsFoundCount = 0;
+    _bonusWordsCount = 0;
+    _errorsCount = 0;
+    _coinsEarned = 0;
+    _isCompleted = false;
+    _startTime = DateTime.now();
+    loadLevel();
   }
 }

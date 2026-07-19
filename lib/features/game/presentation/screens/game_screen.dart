@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -106,7 +105,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controllerAsync = ref.watch(gameControllerProvider(widget.levelId));
+    final controller = ref.watch(gameControllerProvider(widget.levelId));
     final notifier = ref.read(gameControllerProvider(widget.levelId).notifier);
     final currentUser = ref.watch(currentUserProvider).valueOrNull;
     final userCoins = currentUser?.coins ?? 0;
@@ -152,60 +151,52 @@ class _GameScreenState extends ConsumerState<GameScreen> {
             ),
           ),
           SafeArea(
-            child: controllerAsync.when(
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              error: (e, _) => ErrorDisplay(
-                message: 'فشل تحميل المستوى',
-                onRetry: () => ref.invalidate(
-                    gameControllerProvider(widget.levelId)),
-              ),
-              data: (controller) => Column(
-                children: [
-                  _buildTopBar(context, controller, notifier, userCoins),
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                      key: _circleKey,
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      child: LetterCircle(
-                        letters: controller.displayedLetters,
-                        selectedIndices: controller.selectedIndices,
-                        hintedIndices: controller.hintedIndices,
-                        connectionPoints: controller.connectionPoints,
-                        currentPointerPosition:
-                            controller.currentPointerPosition,
-                        isDragging: controller.isDragging,
-                        onLetterTouched: (index, point) {
-                          final box = _circleKey.currentContext
-                              ?.findRenderObject() as RenderBox?;
-                          if (box != null) {
-                            final local = box.globalToLocal(point);
-                            controller.startSelection(index, local);
-                          }
-                        },
-                        onLetterHovered: (index, point) {
-                          final box = _circleKey.currentContext
-                              ?.findRenderObject() as RenderBox?;
-                          if (box != null) {
-                            final local = box.globalToLocal(point);
-                            controller.continueSelection(index, local);
-                          }
-                        },
-                        onPointerMoved: (position) {
-                          controller.updatePointer(position);
-                        },
-                        onSelectionEnded: () {
-                          notifier.endSelection();
-                        },
+            child: !notifier.isLoaded
+                ? const Center(child: CircularProgressIndicator())
+                : Column(
+                    children: [
+                      _buildTopBar(context, controller, notifier, userCoins),
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          key: _circleKey,
+                          margin: const EdgeInsets.symmetric(horizontal: 16),
+                          child: LetterCircle(
+                            letters: controller.displayedLetters,
+                            selectedIndices: controller.selectedIndices,
+                            hintedIndices: controller.hintedIndices,
+                            connectionPoints: controller.connectionPoints,
+                            currentPointerPosition:
+                                controller.currentPointerPosition,
+                            isDragging: controller.isDragging,
+                            onLetterTouched: (index, point) {
+                              final box = _circleKey.currentContext
+                                  ?.findRenderObject() as RenderBox?;
+                              if (box != null) {
+                                final local = box.globalToLocal(point);
+                                controller.startSelection(index, local);
+                              }
+                            },
+                            onLetterHovered: (index, point) {
+                              final box = _circleKey.currentContext
+                                  ?.findRenderObject() as RenderBox?;
+                              if (box != null) {
+                                final local = box.globalToLocal(point);
+                                controller.continueSelection(index, local);
+                              }
+                            },
+                            onPointerMoved: (position) {
+                              controller.updatePointer(position);
+                            },
+                            onSelectionEnded: () {
+                              notifier.endSelection();
+                            },
+                          ),
+                        ),
                       ),
-                    ),
+                      _buildWordSection(context, controller, notifier),
+                    ],
                   ),
-                  _buildWordSection(context, controller, notifier),
-                ],
-              ),
-            ),
           ),
         ],
       ),
@@ -226,7 +217,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
         children: [
           IconButton(
             icon: const Icon(Icons.arrow_back_ios_rounded),
-            onPressed: () => context.pop(),
+            onPressed: () => GoRouter.of(context).pop(),
             color: AppColors.textPrimaryLight,
           ),
           const SizedBox(width: 8),

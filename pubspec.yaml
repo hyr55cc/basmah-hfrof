@@ -86,7 +86,6 @@ dependencies:
   flutter_animate: ^4.5.0
   glassmorphism: ^3.0.0
   flutter_staggered_animations: ^1.1.1
-  particle_painter: ^0.1.0
 
   # ============================================================
   # Audio & Haptics
@@ -115,11 +114,9 @@ dependencies:
   connectivity_plus: ^6.0.3
   device_info_plus: ^10.1.2
   share_plus: ^10.0.0
-  screenshot: ^3.0.0
   path_provider: ^2.1.3
   permission_handler: ^11.3.1
   cupertino_icons: ^1.0.8
-  flutter_screenshots: ^0.1.0
   rate_my_app: ^2.2.0
   in_app_review: ^2.0.9
   app_links: ^6.3.2
@@ -130,7 +127,7 @@ dependencies:
   # ============================================================
   # RTL & Arabic
   # ============================================================
-  arabic_reshaper: ^0.0.2
+  # (Arabic text handling is done in our own helpers, no external package needed)
 
 dev_dependencies:
   flutter_test:

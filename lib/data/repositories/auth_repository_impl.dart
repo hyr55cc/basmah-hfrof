@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import '../../core/errors/exceptions.dart';
 import '../../core/errors/failures.dart';
 import '../../domain/entities/user.dart';
@@ -191,7 +192,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   Future<User> _ensureUserDocument(
-    dynamic cred, {
+    fb_auth.UserCredential cred, {
     String? displayName,
   }) async {
     final firebaseUser = cred.user;
@@ -202,8 +203,9 @@ class AuthRepositoryImpl implements AuthRepository {
     if (existing != null) {
       // Update last login
       final updated = existing.copyWith(lastLoginAt: DateTime.now());
-      await firebase.updateUserDocument(UserModel.fromEntity(updated));
-      await storage.cacheUserData(UserModel.fromEntity(updated).toMap());
+      final userModel = UserModel.fromEntity(updated);
+      await firebase.updateUserDocument(userModel);
+      await storage.cacheUserData(userModel.toMap());
       return updated;
     }
     final newUser = UserModel(

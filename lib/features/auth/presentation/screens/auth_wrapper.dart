@@ -5,8 +5,10 @@ import '../../../../core/di/injection_container.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../../../../domain/repositories/auth_repository.dart';
 import '../../../../services/analytics/analytics_service.dart';
-import '../../domain/usecases/auth_usecases.dart';
+import '../../domain/usecases/auth_usecases.dart' as auth;
+import '../../../../domain/usecases/usecases.dart' show NoParams;
 
 /// Auth screen - shows login options
 class AuthWrapper extends ConsumerStatefulWidget {
@@ -25,7 +27,7 @@ class _AuthWrapperState extends ConsumerState<AuthWrapper> {
       _isLoading = true;
       _error = null;
     });
-    final useCase = SignInAnonymously(sl());
+    final useCase = auth.SignInAnonymously(sl<AuthRepository>());
     final result = await useCase(const NoParams());
     result.fold(
       (failure) {
@@ -46,7 +48,7 @@ class _AuthWrapperState extends ConsumerState<AuthWrapper> {
       _isLoading = true;
       _error = null;
     });
-    final useCase = SignInWithGoogle(sl());
+    final useCase = auth.SignInWithGoogle(sl<AuthRepository>());
     final result = await useCase(const NoParams());
     result.fold(
       (failure) {
@@ -67,7 +69,7 @@ class _AuthWrapperState extends ConsumerState<AuthWrapper> {
       _isLoading = true;
       _error = null;
     });
-    final useCase = SignInWithApple(sl());
+    final useCase = auth.SignInWithApple(sl<AuthRepository>());
     final result = await useCase(const NoParams());
     result.fold(
       (failure) {

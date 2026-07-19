@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discord
+    url: https://discord.gg/arabicwordpuzzle
+    about: انضم إلى مجتمع Discord الخاص بنا
+  - name: التوثيق
+    url: https://github.com/arabicwordpuzzle/game/wiki
+    about: اقرأ التوثيق الكامل

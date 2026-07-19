@@ -1,0 +1,100 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+             exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+
+      // Level progress
+      match /level_progress/{levelId} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+
+      // Achievement progress
+      match /achievement_progress/{achievementId} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+
+      // Purchases
+      match /purchases/{purchaseId} {
+        allow read: if isOwner(userId) || isAdmin();
+        allow write: if isAdmin();
+      }
+    }
+
+    // Levels (read by all, write by admin only)
+    match /levels/{levelId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Achievements
+    match /achievements/{achievementId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Leaderboards
+    match /leaderboard_{type}_{period}/{userId} {
+      allow read: if true;
+      allow create, update: if isOwner(userId);
+      allow delete: if isAdmin();
+    }
+
+    // Shop items
+    match /shop_items/{itemId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Daily rewards config
+    match /daily_rewards/{day} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Notifications (admin can create, users can read their own)
+    match /notifications/{notificationId} {
+      allow read: if true;
+      allow create: if isAdmin();
+      allow update, delete: if isAdmin();
+    }
+
+    // Reports (user submitted)
+    match /reports/{reportId} {
+      allow create: if isSignedIn();
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Events
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Admin collection (admin can only read their own entry)
+    match /admins/{adminId} {
+      allow read: if isOwner(adminId);
+      allow write: if false; // Only via Firebase console
+    }
+  }
+}

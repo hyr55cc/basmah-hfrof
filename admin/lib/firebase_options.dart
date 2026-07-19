@@ -1,4 +1,7 @@
-// Stub file - replace with `flutterfire configure` output for your project.
+// Firebase configuration for the Admin Web Dashboard
+//
+// Filled in with your real project values. The admin panel is web-only.
+
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
@@ -6,62 +9,55 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) return web;
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        return android;
-      case TargetPlatform.iOS:
-        return ios;
-      case TargetPlatform.macOS:
-        return macos;
-      case TargetPlatform.windows:
-        return windows;
-      default:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
-        );
-    }
+    // Admin panel is web-only. Other platforms aren't supported.
+    throw UnsupportedError(
+      'Admin panel only supports web platform.',
+    );
   }
 
+  // Web - real project values
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    appId: '1:1234567890:web:abcdef1234567890',
-    messagingSenderId: '1234567890',
-    projectId: 'arabic-word-puzzle',
-    authDomain: 'arabic-word-puzzle.firebaseapp.com',
-    storageBucket: 'arabic-word-puzzle.appspot.com',
+    apiKey: 'AIzaSyDI7zL1UXF3cgUwdriZ10coAll9Y7gCHGc',
+    appId: '1:48618396707:web:45c79a2eba3a04e5246596',
+    messagingSenderId: '48618396707',
+    projectId: 'basmah-hrof',
+    authDomain: 'basmah-hrof.firebaseapp.com',
+    storageBucket: 'basmah-hrof.firebasestorage.app',
+    measurementId: 'G-152YQH87GS',
   );
 
+  // Placeholders for completeness (admin is web-only)
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    appId: '1:1234567890:android:abcdef1234567890',
-    messagingSenderId: '1234567890',
-    projectId: 'arabic-word-puzzle',
-    storageBucket: 'arabic-word-puzzle.appspot.com',
+    apiKey: 'PLACEHOLDER',
+    appId: '1:48618396707:android:PLACEHOLDER',
+    messagingSenderId: '48618396707',
+    projectId: 'basmah-hrof',
+    storageBucket: 'basmah-hrof.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    appId: '1:1234567890:ios:abcdef1234567890',
-    messagingSenderId: '1234567890',
-    projectId: 'arabic-word-puzzle',
-    iosBundleId: 'com.arabicwordpuzzle.app',
-    storageBucket: 'arabic-word-puzzle.appspot.com',
+    apiKey: 'PLACEHOLDER',
+    appId: '1:48618396707:ios:PLACEHOLDER',
+    messagingSenderId: '48618396707',
+    projectId: 'basmah-hrof',
+    iosBundleId: 'com.basmahhrof.app',
+    storageBucket: 'basmah-hrof.firebasestorage.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    appId: '1:1234567890:macos:abcdef1234567890',
-    messagingSenderId: '1234567890',
-    projectId: 'arabic-word-puzzle',
-    iosBundleId: 'com.arabicwordpuzzle.app',
-    storageBucket: 'arabic-word-puzzle.appspot.com',
+    apiKey: 'PLACEHOLDER',
+    appId: '1:48618396707:macos:PLACEHOLDER',
+    messagingSenderId: '48618396707',
+    projectId: 'basmah-hrof',
+    iosBundleId: 'com.basmahhrof.app',
+    storageBucket: 'basmah-hrof.firebasestorage.app',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    appId: '1:1234567890:windows:abcdef1234567890',
-    messagingSenderId: '1234567890',
-    projectId: 'arabic-word-puzzle',
-    storageBucket: 'arabic-word-puzzle.appspot.com',
+    apiKey: 'PLACEHOLDER',
+    appId: '1:48618396707:windows:PLACEHOLDER',
+    messagingSenderId: '48618396707',
+    projectId: 'basmah-hrof',
+    storageBucket: 'basmah-hrof.firebasestorage.app',
   );
 }
